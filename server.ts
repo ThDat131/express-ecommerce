@@ -1,6 +1,7 @@
 import { app } from './app';
+import config from './src/configs/config';
 
-const port = 8080;
+const { port } = config.app;
 
 const server = app.listen(port, () => {
   console.log(`Listening on port ${port}...`);
