@@ -2,7 +2,7 @@
   "name": "ecommerce",
   "module": "index.ts",
   "scripts": {
-    "start:dev": "bun server.ts --watch"
+    "start:dev": "bun --hot server.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
