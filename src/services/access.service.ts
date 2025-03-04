@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import KeyTokenService from './keyToken.service';
 import { createTokenPair } from '../auth/authUtils';
 import { getInfoData } from '../utils';
+import { BadRequestError } from '../core/error.response';
 
 const RoleShop = {
   SHOP: 'SHOP',
@@ -26,10 +27,7 @@ class AccessService {
       const existedShop = await modelShop.findOne({ email }).lean();
 
       if (existedShop) {
-        return {
-          code: 'xxx',
-          message: 'Shop already register',
-        };
+        throw new BadRequestError('Error: Shop already registered');
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
