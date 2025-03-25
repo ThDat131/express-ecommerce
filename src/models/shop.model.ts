@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, type InferSchemaType } from 'mongoose';
 
 const DOCUMENT_NAME = 'Shop';
 const COLLECTION_NAME = 'Shops';
@@ -18,6 +18,7 @@ const shopSchema = new Schema(
     password: {
       type: String,
       require: true,
+      default: ""
     },
     status: {
       type: String,
@@ -39,4 +40,6 @@ const shopSchema = new Schema(
   }
 );
 
-export default model(DOCUMENT_NAME, shopSchema);
+export type ShopType = InferSchemaType<typeof shopSchema>;
+
+export default model<ShopType>(DOCUMENT_NAME, shopSchema);

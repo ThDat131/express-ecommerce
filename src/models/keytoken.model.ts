@@ -1,4 +1,4 @@
-import mongoose, { model, Schema } from 'mongoose';
+import mongoose, { model, Schema, type InferSchemaType } from 'mongoose';
 
 const DOCUMENT_NAME = 'Key';
 const COLLECTION_NAME = 'Keys';
@@ -18,9 +18,13 @@ const keyTokenSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    refreshToken: {
+    refreshTokensUsed: {
       type: Array,
       default: [],
+    },
+    refreshToken: {
+      type: String,
+      required: true,
     },
   },
   {
@@ -28,5 +32,9 @@ const keyTokenSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+export type KeyTokenType = InferSchemaType<typeof keyTokenSchema> & {
+  _id: string;
+};
 
 export default model(DOCUMENT_NAME, keyTokenSchema);

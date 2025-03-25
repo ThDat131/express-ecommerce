@@ -1,14 +1,5 @@
-const StatusCode = {
-  FORBIDDEN: 403,
-  CONFLICT: 409,
-  BAD_REQUEST: 400,
-};
-
-const ReasonStatusCode = {
-  FORBIDDEN: 'Forbidden',
-  CONFLICT: 'Conflict Error',
-  BAD_REQUEST: 'Bad Request Error',
-};
+import { ReasonPhrases } from '../utils/reason-phrase';
+import { StatusCodes } from '../utils/status-code';
 
 class ErrorResponse extends Error {
   status: number;
@@ -21,8 +12,8 @@ class ErrorResponse extends Error {
 
 class ConflictRequestError extends ErrorResponse {
   constructor(
-    message = ReasonStatusCode.CONFLICT,
-    statusCode = StatusCode.CONFLICT
+    message: string = ReasonPhrases.CONFLICT,
+    statusCode = StatusCodes.CONFLICT
   ) {
     super(message, statusCode);
   }
@@ -30,8 +21,8 @@ class ConflictRequestError extends ErrorResponse {
 
 class BadRequestError extends ErrorResponse {
   constructor(
-    message = ReasonStatusCode.BAD_REQUEST,
-    statusCode = StatusCode.BAD_REQUEST
+    message: string = ReasonPhrases.BAD_REQUEST,
+    statusCode = StatusCodes.BAD_REQUEST
   ) {
     super(message, statusCode);
   }
@@ -39,11 +30,35 @@ class BadRequestError extends ErrorResponse {
 
 class ForbiddenRequestError extends ErrorResponse {
   constructor(
-    message = ReasonStatusCode.FORBIDDEN,
-    statusCode = StatusCode.FORBIDDEN
+    message: string = ReasonPhrases.FORBIDDEN,
+    statusCode = StatusCodes.FORBIDDEN
   ) {
     super(message, statusCode);
   }
 }
 
-export { ConflictRequestError, ForbiddenRequestError, BadRequestError };
+class AuthFailureError extends ErrorResponse {
+  constructor(
+    message: string = ReasonPhrases.UNAUTHORIZED,
+    statusCode = StatusCodes.UNAUTHORIZED
+  ) {
+    super(message, statusCode);
+  }
+}
+
+class NotFoundError extends ErrorResponse {
+  constructor(
+    message: string = ReasonPhrases.NOT_FOUND,
+    statusCode = StatusCodes.NOT_FOUND
+  ) {
+    super(message, statusCode);
+  }
+}
+
+export {
+  ConflictRequestError,
+  ForbiddenRequestError,
+  BadRequestError,
+  AuthFailureError,
+  NotFoundError,
+};

@@ -14,7 +14,7 @@ class SuccessResponse {
   message: string;
   status: number;
   reasonStatusCode: string;
-  metadata: Object;
+  metadata: any;
   constructor({
     message,
     statusCode = StatusCode.OK,
@@ -24,7 +24,7 @@ class SuccessResponse {
     message: string;
     statusCode?: number;
     reasonStatusCode?: string;
-    metadata: Object;
+    metadata: any;
   }) {
     this.message = !message ? reasonStatusCode : message;
     this.status = statusCode;
@@ -47,7 +47,7 @@ class Created extends SuccessResponse {
     message: string;
     statusCode?: number;
     reasonStatusCode?: string;
-    metadata: Object;
+    metadata: any;
   }) {
     super({ message, statusCode, reasonStatusCode, metadata });
   }
@@ -55,13 +55,11 @@ class Created extends SuccessResponse {
 
 class Ok extends SuccessResponse {
   constructor({
-    message,
+    message = ReasonStatusCode.OK,
     metadata,
   }: {
-    message: string;
-    statusCode: number;
-    reasonStatusCode: string;
-    metadata: Object;
+    message?: string;
+    metadata: any;
   }) {
     super({ message, metadata });
   }
